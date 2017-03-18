@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/icons/iconfont.eot');
+  src: url('../fonts/icons/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/icons/iconfont.woff') format('woff'),
+  url('../fonts/icons/iconfont.ttf') format('truetype'),
+  url('../fonts/icons/iconfont.svg#iconfont') format('svg');
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -15,7 +24,7 @@ stage -- start
 .stage {
   position: relative;
   width: 100%;
-  height: 680px;
+  height: 100%;
 }
 /*
 state -- end
@@ -30,7 +39,7 @@ image -- start
   height: 100%;
   overflow: hidden;
   background-color: #ddd;
-
+  perspective: 1800px;
   @at-root {
     .img-figure {
       position: absolute;
@@ -40,6 +49,13 @@ image -- start
       padding: 40px;
       background-color: #fff;
       box-sizing: border-box;
+      cursor: pointer;
+      transform-origin: 0 50% 0;
+      transform-style: preserve-3d;
+      transition: transform .6s ease-in-out, left .6s ease-in-out, top .6s ease-in-out;
+      &.is-inverse {
+        transform: translate(320px) rotateY(180deg);
+      }
     }
 
     figcaption {
@@ -51,6 +67,24 @@ image -- start
         font-size: 16px;
       }
     }
+
+    .img-back {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 50px 40px;
+        overflow: auto;
+        color: #a7a0a2;
+        font-size: 22px;
+        line-height: 1.25;
+        text-align: center;
+        background-color: #fff;
+        box-sizing: border-box;
+        transform: rotateY(180deg) translateZ(1px);
+        backface-visibility: hidden;
+      }
   }
 }
 
@@ -72,6 +106,45 @@ controller -- satrt
   z-index: 101;
   width: 100%;
   text-align: center;
+
+  @at-root {
+    .controller-unit {
+      display: inline-block;
+      margin: 0 5px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #aaa;
+      border-radius: 50%;
+
+      transform: scale(.5);
+      transition: transform .6s ease-in-out, background-color .3s;
+
+      &.is-center {
+        background-color: #888;
+
+        transform: scale(1);
+
+        &::after {
+          color: #fff;
+          font-family: "iconfont";
+          font-size: 90%;
+          line-height: 30px;
+          content: "\e644";
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      }
+
+      &.is-inverse {
+        background-color: #555;
+
+        transform: rotateX(180deg);
+      }
+    }
+  }
 }
 /*
 controller -- end
